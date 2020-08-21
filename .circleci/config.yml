@@ -10,6 +10,7 @@ jobs:
       - restore_cache:
           name: Restore Cached Dependencies
           keys:
+            - cabal-store-v2-{{ checksum "cabal.project" }}-{{ checksum "graphql-parser.cabal" }}-{{ checksum "cabal.project.freeze" }}
             - cabal-store-v2-{{ checksum "cabal.project" }}-{{ checksum "graphql-parser.cabal" }}
             - cabal-store-v2-{{ checksum "cabal.project" }}
             - cabal-store-v2-
@@ -24,7 +25,7 @@ jobs:
           command: cabal new-test --test-options release
       - save_cache:
           name: Cache Dependencies
-          key: cabal-store-v2-{{ checksum "cabal.project" }}-{{ checksum "graphql-parser.cabal" }}
+          key: cabal-store-v2-{{ checksum "cabal.project" }}-{{ checksum "graphql-parser.cabal" }}-{{ checksum "cabal.project.freeze" }}
           paths:
             - ~/.cabal/packages
             - ~/.cabal/store
